@@ -53,7 +53,9 @@ def train_and_test(s2smodel, train_reader, test_reader, block_size, num_quantiza
                         lr       = learning_rate_schedule([lr]*2+[lr/2]*3+[lr/4], UnitType.sample, epoch_size),
                         momentum = momentum_as_time_constant_schedule(1100),
                         gradient_clipping_threshold_per_sample=2.3,
-                        gradient_clipping_with_truncation=True)
+                        gradient_clipping_with_truncation=True,
+                        use_mean_gradient = True
+                              )
 
     if block_size != None:
         learner = block_momentum_distributed_learner(local_learner, block_size=block_size)
